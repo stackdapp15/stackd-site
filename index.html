@@ -3,31 +3,141 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stackd</title>
+<title>Stackd: Budget, Stack, Crush Debt</title>
+<meta name="description" content="Stackd shows what you're good for every day, helps your savings stack up, and gives you a step-by-step plan to be debt-free. Your data stays on your phone.">
+<meta property="og:title" content="Stackd: Budget, Stack, Crush Debt">
+<meta property="og:description" content="Know what you're good for every day. Stack your savings. Crush your debt.">
+<meta property="og:image" content="https://stackdapp15.github.io/stackd-site/img/home.webp">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #0B211A; --text: #E4F5EC; --muted: #8FB8A3; --pop: #C6F432; --deep: #0E2A1F; }
-  body { background: var(--bg); color: var(--text); font: 17px/1.6 -apple-system, system-ui, sans-serif; margin: 0; padding: 48px 16px; }
-  main { max-width: 560px; margin: 0 auto; text-align: center; }
-  h1 { font-size: 44px; margin: 16px 0 4px; letter-spacing: -1px; }
-  .tag { color: var(--pop); font-weight: 700; font-size: 20px; margin: 0 0 16px; }
-  p { color: var(--muted); }
-  .coin { width: 88px; height: 88px; border-radius: 22px; background: var(--deep); display: inline-flex; align-items: center; justify-content: center; }
-  .coin span { width: 60px; height: 60px; border-radius: 50%; background: var(--pop); display: block; }
-  nav { margin-top: 32px; display: flex; gap: 20px; justify-content: center; }
-  a { color: var(--pop); font-weight: 600; }
+  :root { --bg: #0B211A; --card: #14352A; --text: #E4F5EC; --muted: #8FB8A3; --lime: #C6F432; --deep: #0E2A1F; --border: #1F4636; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 Poppins, -apple-system, system-ui, sans-serif; }
+  a { color: var(--lime); }
+  img { max-width: 100%; height: auto; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: var(--text); text-decoration: none; }
+  .brand img { width: 40px; height: 40px; border-radius: 10px; }
+  header nav a { margin-left: 20px; font-weight: 600; font-size: 15px; text-decoration: none; }
+
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 32px 0 56px; }
+  h1 { font-size: clamp(38px, 6vw, 62px); line-height: 1.05; letter-spacing: -2px; font-weight: 800; margin: 0 0 16px; }
+  h1 span { color: var(--lime); }
+  .lede { font-size: 19px; color: var(--muted); margin: 0 0 28px; max-width: 30em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn { display: inline-block; padding: 14px 22px; border-radius: 14px; font-weight: 800; font-size: 16px; text-decoration: none; }
+  .btn.primary { background: var(--lime); color: var(--deep); }
+  .btn.soft { background: var(--card); color: var(--lime); border: 1px solid var(--border); }
+  .soon { display: inline-block; padding: 14px 22px; border-radius: 14px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-weight: 600; }
+  .note { font-size: 14px; color: var(--muted); margin-top: 14px; }
+  .phone { width: 100%; max-width: 320px; margin: 0 auto; display: block; border-radius: 36px; border: 6px solid var(--border); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); }
+
+  section { padding: 48px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: clamp(28px, 4vw, 38px); letter-spacing: -1px; line-height: 1.15; margin: 0 0 8px; font-weight: 800; }
+  .sub { color: var(--muted); margin: 0 0 28px; max-width: 36em; }
+  .shots { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 260px); gap: 18px; overflow-x: auto; padding: 4px 4px 18px; scroll-snap-type: x mandatory; }
+  .shots figure { margin: 0; scroll-snap-align: start; }
+  .shots img { width: 100%; display: block; border-radius: 28px; border: 5px solid var(--border); }
+  .shots figcaption { text-align: center; font-weight: 600; font-size: 15px; margin-top: 10px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .feature { background: var(--card); border-radius: 18px; padding: 20px; }
+  .feature h3 { margin: 0 0 6px; font-size: 18px; font-weight: 800; }
+  .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+  .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--lime); margin-bottom: 12px; }
+
+  .waitlist { background: var(--lime); color: var(--deep); border-radius: 24px; padding: 32px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
+  .waitlist h2 { color: var(--deep); }
+  .waitlist p { margin: 0; color: #2D4A0A; max-width: 34em; }
+  .waitlist .btn { background: var(--deep); color: var(--lime); white-space: nowrap; }
+
+  footer { padding: 32px 0 48px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+  footer a { font-weight: 600; text-decoration: none; margin-right: 16px; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; padding-top: 12px; }
+    .waitlist { grid-template-columns: 1fr; padding: 24px; }
+    header nav a { margin-left: 14px; }
+  }
 </style>
 </head>
 <body>
-<main>
-  <div class="coin" aria-hidden="true"><span></span></div>
-  <h1>Stackd</h1>
-  <p class="tag">Budget. Stack. Crush debt.</p>
-  <p>Know what you're good for every day, watch your savings stack up, and get a step-by-step plan to be debt-free. Your data stays on your phone.</p>
-  <p>Coming soon to the App Store.</p>
-  <nav>
-    <a href="support.html">Support</a>
-    <a href="privacy-policy.html">Privacy policy</a>
-  </nav>
-</main>
+<div class="wrap">
+  <header>
+    <a class="brand" href="./"><img src="img/icon.png" alt="">Stackd</a>
+    <nav>
+      <a href="support.html">Support</a>
+      <a href="privacy-policy.html">Privacy</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1>Budget. Stack. <span>Crush debt.</span></h1>
+        <p class="lede">Know what you're good for every day, watch your savings stack up, and get a step-by-step plan to be debt-free.</p>
+        <div class="cta">
+          <!-- LAUNCH DAY: change data-live="false" to "true" below. The button then links to the App Store. -->
+          <span id="store" data-live="false" data-url="https://apps.apple.com/app/id6817149826"></span>
+          <a class="btn soft" href="#android">Android waitlist</a>
+        </div>
+        <p class="note">No account needed. Your data stays on your phone.</p>
+      </div>
+      <img class="phone" src="img/home.webp" width="640" height="1391" alt="Stackd home screen showing “You're good for $55.40 today”, this month's income and spending, and upcoming bills">
+    </div>
+
+    <section>
+      <h2>Your money, one glance.</h2>
+      <p class="sub">Everything in Stackd is built to answer one question fast: where do I stand right now?</p>
+      <div class="shots">
+        <figure><img src="img/envelopes.webp" width="640" height="1391" loading="lazy" alt="Budget categories shown as cash envelopes"><figcaption>Cash envelopes</figcaption></figure>
+        <figure><img src="img/spending.webp" width="640" height="1391" loading="lazy" alt="Donut chart of spending by category and a bar chart of income versus spending"><figcaption>See where it went</figcaption></figure>
+        <figure><img src="img/debt.webp" width="640" height="1391" loading="lazy" alt="Debt payoff chart showing a debt-free date"><figcaption>Your road to $0</figcaption></figure>
+        <figure><img src="img/savings.webp" width="640" height="1391" loading="lazy" alt="Savings goals with a growth chart"><figcaption>Watch it stack</figcaption></figure>
+        <figure><img src="img/challenges.webp" width="640" height="1391" loading="lazy" alt="Money challenges like a 30-day streak"><figcaption>Challenges</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Built for real life.</h2>
+      <p class="sub">Not a spreadsheet. A plan that moves with your paycheck.</p>
+      <div class="grid">
+        <div class="feature"><div class="dot"></div><h3>You're good for…</h3><p>One number that tells you what you can spend today, after bills, savings, and debt. By the month or until payday.</p></div>
+        <div class="feature"><div class="dot"></div><h3>Budget your way</h3><p>Simple limits, 50/30/20, zero-based, or pay yourself first. Switch anytime.</p></div>
+        <div class="feature"><div class="dot"></div><h3>A plan to be debt-free</h3><p>Avalanche or snowball, with a payoff date and what every extra dollar saves you.</p></div>
+        <div class="feature"><div class="dot"></div><h3>Bills that don't sneak up</h3><p>Due dates, countdowns, and reminders the day before.</p></div>
+        <div class="feature"><div class="dot"></div><h3>Streaks and challenges</h3><p>No-spend weekends, savings challenges, badges, and wins worth sharing.</p></div>
+        <div class="feature"><div class="dot"></div><h3>Private by design</h3><p>No account, no tracking, no ads. Everything stays on your phone.</p></div>
+      </div>
+    </section>
+
+    <section id="android">
+      <div class="waitlist">
+        <div>
+          <h2>On Android?</h2>
+          <p>Stackd is launching on iPhone first. Join the waitlist and you'll be first to try the Android version, as one of our early testers.</p>
+        </div>
+        <a class="btn" href="mailto:stackdapp.help@gmail.com?subject=Android%20waitlist&body=Add%20me%20to%20the%20Stackd%20Android%20waitlist.%0A%0AThe%20Gmail%20address%20on%20my%20Android%20phone%20is%3A%20">Join the waitlist</a>
+      </div>
+      <p class="note">Tapping the button opens an email to us. We only use your address to invite you to test Stackd on Android.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Stackd. A budgeting tool, not financial advice.</span>
+    <span><a href="support.html">Support</a><a href="privacy-policy.html">Privacy policy</a><a href="mailto:stackdapp.help@gmail.com">Contact</a></span>
+  </footer>
+</div>
+<script>
+  // Shows "Coming soon" until launch day, then a Download button (see the LAUNCH DAY note above).
+  var store = document.getElementById('store');
+  store.outerHTML = store.dataset.live === 'true'
+    ? '<a class="btn primary" href="' + store.dataset.url + '">Download on the App Store</a>'
+    : '<span class="soon">Coming soon to the App Store</span>';
+</script>
 </body>
 </html>
